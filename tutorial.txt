@@ -1,0 +1,115 @@
+Tutorial on the various parts of a Django project.
+
+
+
+PART 1 : Setup
+
+- Go to directory to start project :
+$ django-admin startproject mysite
+- To run the server : 
+$ python manage.py runserver
+- To start an App
+$ python manage.py startapp yourApp
+
+
+
+PART 2 : The super admin
+
+$ python manage.py createsuperuser
+- Enter username, email adress and password
+- To access it, go to the admin page from the server
+
+
+
+PART 3 : Creating models
+
+Example : 
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+    
+    
+    
+PART 4 : Getting the models on air
+
+When you change something to a class, you've got to migrate everything.
+$ python manage.py makemigrations Courses
+$ python manage.py migrate Courses
+
+Then, to access them from the admin page, go to the admin.py of directory, and add :
+$ admin.site.register(Course)
+
+Also, don't forget to add a __str__ function so that they hqve an actual name.
+
+Check out page 7 of the tutorial in order to add the fieldsets
+
+
+
+PART 5 : Customize your admin page
+
+Add inlines :
+- Go to the admin page
+- Create the admin.StackedInline object
+- Create the admin.ModelAdmin object with the StackedInline in an array in the inlines field
+- Add the inline in the register as a second argument.
+
+class ChapterInline(admin.StackedInline):
+    model = Chapter
+    extra = 3
+
+class ChapterAdmin(admin.ModelAdmin):
+    inlines = [ChapterInline]
+
+Add Filters
+Add search options
+
+
+
+PART N : Execute custom python functions in your HTML templates
+
+- Create a templatetags folder with an empty __init__.py + a file containing the functions you want to execute
+- In your HTML file, load the file at the beginning.
+- You can now run the functions on items passed in the context dictionary, which is really cool. Here's an example :
+
+In the templatetags/course_extras :
+    @register.filter
+    def get_identifier(input) :
+        return input[1]
+
+In the views :
+
+    content = [["A","This is type A"], ["B", "This is type B"], ["A", "This is type A again."]]
+    context = {'content' : content }
+    def course(request) :
+    return render(request, 'courses/course.html', context)
+
+In the courses.html file : 
+
+    {% load course_extras %}
+
+    {% for item in content %}
+    
+    {% if item|get_identifier == "A"%}
+    <p>Ceci est de type A</p>
+    <p>{{item|get_text}}</p>
+    {% elif item|get_identifier == "B"%}
+    <p>Ceci est de type B</p>
+    <p>{{item|get_text}}</p>
+    {% endif %}
+
+    {% endfor %}
+
+
+
+PART N+1 : Integrating a javascript file in a Django App
+
+    - Put them in a static file and integrate them as you'd like
+    - use : <script type="text/javascript" src="{% static './courses/sigma.min.js'%}" ></script>
+            <script> console.log("TA MERE") </script>

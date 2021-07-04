@@ -1,0 +1,29 @@
+To-Do List for the website : 
+
+Courses : 
+
+- Configure the models for : 
+	- Courses
+	- Chapters
+	- Exercises
+
+- Set up the database, with two phony courses, with each two phony chapters and a bit of phony exercises.
+
+- Set up the admin account.
+
+- Prepare a page structure for the courses : 
+	- Course menu : find a course to learn ! Prepare a course research bar.
+	- When you click on a specific course : 
+		- Course, starting page, with the chapters, and the exercises.
+		- Chapter page
+		- Exercise page
+
+- Prepare the Comments page, standard form textarea
+
+- Customize the admin account
+	- Display all the courses, with a chapter count on the same page
+	- Display all the chapters
+	
+
+- Learn Javascript : do the TREE
+- Finish learning CSS : do the GRPAHICS

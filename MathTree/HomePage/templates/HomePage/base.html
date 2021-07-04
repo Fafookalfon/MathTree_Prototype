@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <!-- Latex Scripts -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- Latex Commands -->
+    \( \newcommand{\R}{\mathbb{R}} \)
+
+
+</head>
+
+<header>
+    <h1>MATHTREE</h1>
+</header>
+
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+
+<footer>
+<p>About us</p>
+<a href="{% url 'home:home'%}">HomePage</a>
+</footer>

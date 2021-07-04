@@ -1,0 +1,14 @@
+{% extends "HomePage/base.html" %}
+
+{% block content %}
+<p>Hey so this is the website here it is haha yeah</p>
+<p>We do a lot of different things such as :</p> 
+
+<ul>
+    <li><a href = "{% url 'courses' %}">Courses</a></li>
+    <li><a href = "{% url 'sigmatest' %}">TreeProject</a></li>
+    <li><a href = "{% url 'comments' %}">Comments</a></li>
+</ul>
+
+
+{% endblock %}
