@@ -61,12 +61,36 @@ class Exercise(models.Model) :
         return self.name
 
 class ChapterPage(models.Model) : 
+    
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     index = models.IntegerField()
     content = models.TextField(default = "")
 
     def __str__(self) :
         return (self.chapter.__str__() + ', Page ' + str(self.index))
+    
+    def is_last_page(self) :
+        
+        
+        for page in ChapterPage.objects.filter(chapter__name=self.chapter.name) :
+            if page.index > self.index :
+                return False
+        
+        return True
+    
+    def is_first_page(self) :
+
+        for page in ChapterPage.objects.filter(chapter__name=self.chapter.name) :
+            if page.index < self.index :
+                return False
+        
+        return True
+    
+    def next_index(self) : 
+        return self.index + 1
+
+    def previous_index(self) : 
+        return self.index - 1 
 
 
 
