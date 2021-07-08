@@ -11,8 +11,8 @@ class Course(models.Model) :
     def __str__(self) :
         return self.name
 
-    x_position = models.IntegerField(default=0)
-    y_position = models.IntegerField(default=0)
+    x_position = models.FloatField(default=0)
+    y_position = models.FloatField(default=0)
     description = models.TextField(default = "")
 
 class Prerequisite(models.Model) :
@@ -20,6 +20,9 @@ class Prerequisite(models.Model) :
     prerequisite = models.ForeignKey(Course, related_name = "prerequisite", on_delete=models.CASCADE)
     target = models.ForeignKey(Course, related_name = "target", on_delete=models.CASCADE)
     comment = models.TextField()
+
+    def __str__(self) :
+        return f"{self.prerequisite.name} to {self.target.name}" 
 
     
 class CourseTree(models.Model) : 
