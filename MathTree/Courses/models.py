@@ -13,6 +13,7 @@ class Course(models.Model) :
 
     x_position = models.IntegerField(default=0)
     y_position = models.IntegerField(default=0)
+    description = models.TextField(default = "")
 
 class Prerequisite(models.Model) :
 
@@ -22,14 +23,17 @@ class Prerequisite(models.Model) :
 
     
 class CourseTree(models.Model) : 
+
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    data = models.CharField(max_length = big_number)
+    data = models.TextField(default = "")
 
 
 class Chapter(models.Model) : 
+
     index = models.IntegerField(default = -1)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField(max_length = big_number)
+    description = models.TextField(default = "")
 
     '''
     @admin.display(
@@ -46,9 +50,9 @@ class Exercise(models.Model) :
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     name = models.CharField(default = "name", max_length=big_number)
     difficulty = models.IntegerField(default = 1)
-    questions = models.CharField(max_length = big_number)
-    hints = models.CharField(max_length = big_number)
-    solutions = models.CharField(max_length = big_number)
+    questions = models.TextField(default = "")
+    hints = models.TextField(default = "")
+    solutions = models.TextField(default = "")
 
     def __str__(self) :
         return self.name
@@ -56,7 +60,7 @@ class Exercise(models.Model) :
 class ChapterPage(models.Model) : 
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     index = models.IntegerField()
-    content = models.CharField(max_length = big_number)
+    content = models.TextField(default = "")
 
     def __str__(self) :
         return (self.chapter.__str__() + ', Page ' + str(self.index))

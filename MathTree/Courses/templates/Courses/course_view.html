@@ -1,0 +1,14 @@
+{% extends "HomePage/base.html" %}
+{% block content %}
+
+<p>You successfully found a course.</p>
+<p> {{course.name}}</p>
+<p>Chapters :</p>
+
+<ol>
+    {% for chapter in course.chapter_set.all %}
+    <li><a href = "{% url 'chapter_view' course.name chapter.index%}">{{chapter.name}}</a></li>
+    {% endfor %}
+</ol>
+
+{% endblock %}
