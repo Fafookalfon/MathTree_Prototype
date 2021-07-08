@@ -2,6 +2,16 @@
 {% block content %}
 
 <p> Hey so this is where all the learning takes place. Hurray !</p>
+
+{% if Courses_list %}
+    
+    <ul>
+        {% for course in Courses_list%}
+        <li><a href="">{{course.name}}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
 <p>Proof there will actually be math : there's already latex ! \(\R\) </p>
 
 {% endblock %}

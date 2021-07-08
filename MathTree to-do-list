@@ -3,13 +3,13 @@ To-Do List for the website :
 Courses : 
 
 - Configure the models for : 
-	- Courses
-	- Chapters
+	- Courses Ok
+	- Chapters Ok
 	- Exercises
 
-- Set up the database, with two phony courses, with each two phony chapters and a bit of phony exercises.
+- Set up the database, with two phony courses, with each two phony chapters and a bit of phony exercises. OK
 
-- Set up the admin account.
+- Set up the admin account. OK
 
 - Prepare a page structure for the courses : 
 	- Course menu : find a course to learn ! Prepare a course research bar.

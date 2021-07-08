@@ -30,7 +30,6 @@ class Chapter(models.Model) :
     index = models.IntegerField(default = -1)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     name = models.CharField(max_length = big_number)
-    prerequisites = models.CharField(max_length = big_number)
 
     '''
     @admin.display(
