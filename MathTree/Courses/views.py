@@ -26,6 +26,11 @@ def page_view(request, course_name, chapter_index, page_index) :
     page = ChapterPage.objects.filter(chapter__course__name=course_name, chapter__index=chapter_index, index=page_index).first()
     return render(request, 'Courses/page_view.html', {"page" : page})
 
+def exercises_view(request, course_name) :
+
+    course = Course.objects.filter(name=course_name).first()
+    return render(request, 'Courses/exercises_view.html', {"course" : course})
+
 ### This is dedicated to generating all the json necessary for the tree rendering. ###
 
 def prerequisite_to_json(Prerequisite) :

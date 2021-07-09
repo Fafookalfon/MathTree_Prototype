@@ -1,0 +1,15 @@
+{% extends "HomePage/base.html" %}
+{% block content %}
+
+{% for chapter in course.chapter_set.all %}
+
+<p><strong>{{chapter.name}}</strong></p>
+{% for exercise in chapter.exercise_set.all %}
+<p>{{exercise.questions}}</p>
+<p>{{exercise.hints}}</p>
+<p>{{exercise.solutions}}</p>
+{% endfor %}
+{% endfor %}
+
+
+{% endblock %}
