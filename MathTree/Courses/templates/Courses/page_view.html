@@ -1,15 +1,64 @@
 {% extends "HomePage/base.html" %}
 {% block content %}
 
-<p>Well done, you have reached a page.</p>
-<p>{{page.content}}</p>
+{% load extras %}
 
+<p>{{ page.content }}</p>
+
+{% for item in page.content|parse_text_as_list %}
+
+{% if item|get_identifier == "theorem" %}
+
+<h3>Théorème : {{item|get_first_field}}</h3>
+<p><strong>{{item|get_second_field}}</strong></p>
+<p>Preuve : {{item|get_third_field}}</p>
+
+{% endif %}
+
+{% if item|get_identifier == "definition" %}
+<p>Définition : <strong>{{item|get_first_field}}</strong></p>
+{% endif %}
+
+{% if item|get_identifier == "text" %}
+<p>{{item|get_first_field}}</p>
+{% endif %}
+
+{% if item|get_identifier == "example" %}
+<p>Par exemple : {{item|get_first_field}}</p>
+{% endif %}
+
+{% if item|get_identifier == "examples" %}
+<p>Exemples : </p>
+<ul>
+    {% for example in item|get_first_field %}
+    <li>{{example}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if item|get_identifier == "exercise" %}
+<p>Exercice : {{item|get_first_field}}</p>
+<ul>
+{% for question in item|get_first_field|get_associated_exercise_fields|get_zero_field|parse_text_as_list %}
+
+    <li>{{question}}</li>
+
+{% endfor%}
+</ul>
+{% endif %}
+
+{% endfor %}
+
+
+<p>
 {% if not page.is_first_page %}
 <a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.previous_index %}">Previous page</a>
 {% endif %}
+{{page.chapter.name}}
 {% if not page.is_last_page %}
-<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.next_index %}">Next page</p>
+<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.next_index %}">Next page</a>
 {% endif %}
+</p>
 
 
 {% endblock %}
