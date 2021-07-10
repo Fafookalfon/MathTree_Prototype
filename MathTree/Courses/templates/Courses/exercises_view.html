@@ -1,13 +1,29 @@
 {% extends "HomePage/base.html" %}
 {% block content %}
 
+{% load extras %}
 {% for chapter in course.chapter_set.all %}
 
-<p><strong>{{chapter.name}}</strong></p>
+<p><strong>Exercices sur le chapitre : {{chapter.name}}</strong></p>
 {% for exercise in chapter.exercise_set.all %}
-<p>{{exercise.questions}}</p>
-<p>{{exercise.hints}}</p>
-<p>{{exercise.solutions}}</p>
+<div class = exercice>
+<p>Exercice {{forloop.counter}} : {{exercise.name}}, Difficulté : {{exercise.difficulty}}</p>
+<ol>
+{% for question in exercise.questions|parse_text_as_list %}
+<li>{{question}}</li>
+{% endfor %}
+</ol>
+<ol>
+{% for hint in exercise.hints|parse_text_as_list %}
+<li>{{hint}}</li>
+{% endfor %}
+</ol>
+<ol>
+{% for solution in exercise.solutions|parse_text_as_list %}
+<li>{{solution}}</li>
+{% endfor %}
+</ol>
+</div>
 {% endfor %}
 {% endfor %}
 

@@ -1,12 +1,17 @@
 {% extends "HomePage/base.html" %}
 
 {% block content %}
-<p>Hey so this is the website here it is haha yeah</p>
-<p>We do a lot of different things such as :</p> 
+<p>Bienvenue sur le site MathTree ! MathTree est un projet collaboratif visant à réaliser un ensemble de cours de mathématiques partant d'un niveau lycée jusqu'à des niveaux bien plus lointains.</p>
+<p>Le coeur de ce projet tient en deux objectifs : </p>
+<ul>
+    <li>Le premier est celui de la <strong>continuité</strong> et de la <strong>lisibilité</strong>. Un apprenti mathématicien possédant un tel ensemble de prérequis doit pouvoir facilement trouver le chemin et accéder aux ressources lui permettant de comprendre une nouvelle notion. Nous souhaitons lui fournir un par un les blocs nécessaire à sa compréhension et à son approche du nouveau sujet en question.</li>
+    <li>Le deuxième est celui de <strong>l'accessibilité</strong> : les cours sont non seulement gratuits, mais également <strong>progressifs</strong>. Un cours qui va trop vite, c'est décourageant. Ici, les notions présentées sont détaillées (nous banissons notamment le "c'est trivial", "la démonstration est laissée en exercice"...), et accompagnées d'exercices corrigés et de QCM tout du long.</li>
+</ul>
+
 
 <ul>
-    <li><a href = "{% url 'courses' %}">Courses</a></li>
-    <li><a href = "{% url 'comments' %}">Comments</a></li>
+    <li><a href = "{% url 'courses' %}">Accéder aux cours</a></li>
+    <li><a href = "{% url 'comments' %}">Laisser un commentaire</a></li>
 </ul>
 
 

@@ -1,11 +1,18 @@
 {% extends "HomePage/base.html" %}
 {% block content %}
 
-<p> Hey so this is where all the learning takes place. Hurray !</p>
+<p> Bienvenue sur le portail des cours de MathTree !</p>
 
-<p>View the whole tree :</p>
+<p>Dans l'apprentissage des mathématiques, nous pensons que l'idée de lien entre les notions, et de <strong>progression</strong> est capitale. Vous trouverez donc sur ce site une liste de notions, mais également un lien vers une représentation des cours que nous proposons sous forme <strong>de graphe</strong>. Un graphe orienté dont les noeuds sont les cours, et où il existe une arête d'un noeud "a" vers un noeud "b" si le cours "a" est un prérequis pour le cours "b".</p>
+<p>C'est un arbre de deux manières (d'où le nom de ce site, MathTree) : </p>
+<ul>
+    <li>Mathématiquement, c'est un arbre orienté (acyclique et connexe).</li>
+    <li>Il continue de grandir jour après jour.</li>
+</ul>
 
-<a href="{% url 'general_tree_view' %}">Tree view</a>
+<ul><li><a href="{% url 'general_tree_view' %}">Voir l'arbre</a></li></ul>
+
+<p>Liste des cours disponibles :</p>
 
 {% if Courses_list %}
     
@@ -16,6 +23,6 @@
     </ul>
 {% endif %}
 
-<p>Proof there will actually be math : there's already latex ! \(\R\) </p>
+<p>Et voilà du latex : \(\R\) </p>
 
 {% endblock %}

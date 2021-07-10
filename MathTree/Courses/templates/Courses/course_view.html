@@ -1,9 +1,9 @@
 {% extends "HomePage/base.html" %}
 {% block content %}
 
-<p>You successfully found a course.</p>
-<p> {{course.name}}</p>
-<p>Chapters :</p>
+<h1> {{course.name}}</h1>
+<p>{{course.description}}</p>
+<p>Chapitres :</p>
 
 <ol>
     {% for chapter in course.chapter_set.all %}
@@ -11,8 +11,10 @@
     {% endfor %}
 </ol>
 
-<p>Exercises :</p>
+<p>Le cours est également accompagné d'une feuille d'exercices corrigés, avec indications.</p>
 
-<a href = "{% url 'exercises_view' course.name%}">Voila les exercices</a>
+<p>Exercices :</p>
+
+<a href = "{% url 'exercises_view' course.name%}">Voila les exercices.</a>
 
 {% endblock %}
