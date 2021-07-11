@@ -1,5 +1,5 @@
-{% extends "HomePage/base.html" %}
-{% block content %}
+{% extends "Courses/courses_base.html" %}
+{% block content_ %}
 
 <p> Bienvenue sur le portail des cours de MathTree !</p>
 
@@ -10,14 +10,14 @@
     <li>Il continue de grandir jour après jour.</li>
 </ul>
 
-<ul><li><a href="{% url 'general_tree_view' %}">Voir l'arbre</a></li></ul>
+<a href="{% url 'general_tree_view' %}"><div class="link_button">Voir l'arbre</div></a>
 
 <p>Liste des cours disponibles :</p>
 
 {% if Courses_list %}
     
     <ul>
-        {% for course in Courses_list%}
+        {% for course in Courses_list %}
         <li><a href="{% url 'course_view' course.name %}">{{course.name}}</a></li>
         {% endfor %}
     </ul>

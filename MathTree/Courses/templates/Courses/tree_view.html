@@ -1,5 +1,5 @@
-{% extends "HomePage/base.html" %}
-{% block content %}
+{% extends "Courses/courses_base.html" %}
+{% block content_ %}
 
 {% load static %}
 
@@ -20,7 +20,7 @@
   <body>
    
     <div id="container"></div>
-    <script type="text/javascript" src="{% static './courses/sigma.min.js'%}"></script>
+    <script type="text/javascript" src="{% static './Courses/sigma.min.js'%}"></script>
     <script>
       
       const data_as_string = '{{ data|escapejs }}';

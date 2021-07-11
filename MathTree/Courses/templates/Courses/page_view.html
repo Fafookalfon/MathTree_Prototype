@@ -1,5 +1,5 @@
-{% extends "HomePage/base.html" %}
-{% block content %}
+{% extends "Courses/courses_base.html" %}
+{% block content_ %}
 
 {% load extras %}
 
@@ -8,6 +8,14 @@
 {% for item in page.content|parse_text_as_list %}
 
 {% if item|get_identifier == "theorem" %}
+
+<h3>Théorème : {{item|get_first_field}}</h3>
+<p><strong>{{item|get_second_field}}</strong></p>
+<p>Preuve : {{item|get_third_field}}</p>
+
+{% endif %}
+
+{% if item|get_identifier == "proposition" %}
 
 <h3>Théorème : {{item|get_first_field}}</h3>
 <p><strong>{{item|get_second_field}}</strong></p>

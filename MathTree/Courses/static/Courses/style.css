@@ -1,0 +1,14 @@
+div.link_button {
+    text-align: center;
+    display: block;
+    font-weight: bold;
+    
+    border: solid black 2px;
+    border-radius: 10px;
+    margin: auto 40%;
+    padding: 8px 0px;
+}
+
+a {
+    text-align: center;
+}
