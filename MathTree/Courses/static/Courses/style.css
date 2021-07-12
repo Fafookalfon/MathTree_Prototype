@@ -1,14 +1,62 @@
-div.link_button {
-    text-align: center;
-    display: block;
-    font-weight: bold;
+/* Characteristics of oval items */
+
+div.oval_item {
+    border-radius: 8px;
+    background-color:rgba(128, 128, 128, 0.250);
+    padding: 0px 0px 1px 0px;
     
-    border: solid black 2px;
-    border-radius: 10px;
-    margin: auto 40%;
-    padding: 8px 0px;
 }
 
-a {
+div.oval_item h3.oval_item_name {
+    background-color: rgba(128, 128, 128, 0.600);
+    border-radius: 8px;
+    padding: 1px 3px 1px 10px ;
+    margin: auto auto 10px auto;
+    
+}
+
+div.oval_item .oval_item_content {
+    padding: 0 0 0 3%;
+    margin: 0px auto 10px auto;
+}
+
+/* Characteristics of Specific Oval Items*/
+
+div.oval_item.definition {
+    background-color: rgba(209, 125, 125, 0.3);
+}
+
+div.oval_item.definition h3.oval_item_name {
+    background-color: rgba(209, 125, 125, 0.7);
+}
+
+div.oval_item.theorem {
+    background-color: rgba(125, 171, 209, 0.300);
+}
+
+div.oval_item.theorem h3.oval_item_name {
+    background-color: rgba(125, 171, 209, 0.700);
+}
+
+/* Style of the footer buttons */
+
+div.page_footer {
     text-align: center;
+    margin: 10px auto auto auto;
+}
+
+div.page_footer a {
+    display: inline;
+    border-radius: 3px;
+    border: solid black 1.5px;
+    padding: 5px;
+}
+
+div.page_footer .chapter_page {
+    display: inline;
+    margin: 0px 15px;
+}
+
+div.page_footer .before_button{
+    display: inline;
 }

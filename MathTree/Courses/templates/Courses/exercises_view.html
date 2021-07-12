@@ -6,7 +6,7 @@
 
 <p><strong>Exercices sur le chapitre : {{chapter.name}}</strong></p>
 {% for exercise in chapter.exercise_set.all %}
-<div class = exercice>
+<div class = "exercise">
 <p>Exercice {{forloop.counter}} : {{exercise.name}}, Difficulté : {{exercise.difficulty}}</p>
 <ol>
 {% for question in exercise.questions|parse_text_as_list %}

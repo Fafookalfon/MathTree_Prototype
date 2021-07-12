@@ -2,9 +2,10 @@
 {% block content_ %}
 
 <h1>{{chapter.course.name}}</h1>
-<h2>{{chapter.name}}</h2>
+<h2>Chapitre {{chapter.index}} : {{chapter.name}}</h2>
 <p> {{chapter.description}}</p>
 
-<a href="{% url 'page_view' chapter.course.name chapter.index 1%}">Start Learning !</a>
+
+<ul class="inline"><a href="{% url 'page_view' chapter.course.name chapter.index 1%}" class="link_button">Commencer le chapitre</a></ul>
 
 {% endblock %}

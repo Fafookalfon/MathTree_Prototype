@@ -3,48 +3,107 @@
 
 {% load extras %}
 
-<p>{{ page.content }}</p>
+<h1>{{page.chapter.course.name}}</h1>
+<h2>Chapitre {{page.chapter.index}} : {{page.chapter.name}}, page {{page.index}}</h2>
 
 {% for item in page.content|parse_text_as_list %}
 
-{% if item|get_identifier == "theorem" %}
 
-<h3>Théorème : {{item|get_first_field}}</h3>
-<p><strong>{{item|get_second_field}}</strong></p>
+{% if item|get_identifier == "theorem" %}
+<div class="theorem oval_item">
+<h3 class="oval_item_name">Théorème : {{item|get_first_field}}</h3>
+<div class="oval_item_content">
+<p>{{item|get_second_field}}</p>
 <p>Preuve : {{item|get_third_field}}</p>
+</div>
+</div>
+{% endif %}
+
+
+{% if item|get_identifier == "theorem_list" %}
+<div class = "theorem oval_item">
+<h3 class="oval_item_name">Théorèmes : {{item|get_first_field}}</h3>
+<div class="oval_item_content">
+<ol>
+{% for theorem in item|get_second_field %}
+<li>{{theorem}}</li>
+{% endfor%}
+</ol>
+<p>Preuves : </p>
+<ol>
+{% for proof in item|get_third_field %}
+<li> {{proof}}</li>
+{% endfor%}
+</ol>
+</div>
+</div>
 
 {% endif %}
 
 {% if item|get_identifier == "proposition" %}
-
-<h3>Théorème : {{item|get_first_field}}</h3>
-<p><strong>{{item|get_second_field}}</strong></p>
+<div class = "proposition oval_item">
+<h3 class="oval_item_name">Proposition : {{item|get_first_field}}</h3>
+<div class="oval_item_content">
+<p>{{item|get_second_field}}</p>
 <p>Preuve : {{item|get_third_field}}</p>
+</div>
+</div>
+{% endif %}
+
+{% if item|get_identifier == "proposition_list" %}
+<div class="proposition oval_item">
+<h3 class="oval_item_name">Propositions : {{item|get_first_field}}</h3>
+<div class="oval_item_content">
+<ol>
+{% for proposition in item|get_second_field %}
+<li>{{proposition}}</li>
+{% endfor%}
+</ol>
+<p>Preuves : </p>
+<ol>
+{% for proof in item|get_third_field %}
+<li>{{proof}}</li>
+{% endfor%}
+</ol>
+</div>
+</div>
 
 {% endif %}
 
 {% if item|get_identifier == "definition" %}
-<p>Définition : <strong>{{item|get_first_field}}</strong></p>
+<div class="definition oval_item">
+<h3 class="oval_item_name">Définition : {{item|get_first_field}}</h3>
+<div class="oval_item_content">
+<p>{{item|get_second_field}}</p>
 {% endif %}
+</div>
+</div>
 
 {% if item|get_identifier == "text" %}
+<div class = "text">
 <p>{{item|get_first_field}}</p>
+</div>
 {% endif %}
 
 {% if item|get_identifier == "example" %}
+<div class="example">
 <p>Par exemple : {{item|get_first_field}}</p>
+</div>
 {% endif %}
 
-{% if item|get_identifier == "examples" %}
+{% if item|get_identifier == "example_list" %}
+<div class="example">
 <p>Exemples : </p>
 <ul>
     {% for example in item|get_first_field %}
     <li>{{example}}</li>
     {% endfor %}
 </ul>
+</div>
 {% endif %}
 
 {% if item|get_identifier == "exercise" %}
+<div class="exercise">
 <p>Exercice : {{item|get_first_field}}</p>
 <ul>
 {% for question in item|get_first_field|get_associated_exercise_fields|get_zero_field|parse_text_as_list %}
@@ -53,20 +112,22 @@
 
 {% endfor%}
 </ul>
+</div>
 {% endif %}
 
 {% endfor %}
 
 
-<p>
+
+<div class="page_footer">
 {% if not page.is_first_page %}
-<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.previous_index %}">Previous page</a>
+<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.previous_index %}" class = "before_button">Page Précédente</a>
 {% endif %}
-{{page.chapter.name}}
+<a href = "{% url 'chapter_view' page.chapter.course.name page.chapter.index %}" class="chapter_page">{{page.chapter.course.name}} : {{page.chapter.name}}</a>
 {% if not page.is_last_page %}
-<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.next_index %}">Next page</a>
+<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.next_index %}" class = "after_button">Page Suivante</a>
 {% endif %}
-</p>
+</div>
 
 
 {% endblock %}
