@@ -85,6 +85,7 @@ class ChapterPage(models.Model) :
                 return False
         
         return True
+
     
     def next_index(self) : 
         return self.index + 1

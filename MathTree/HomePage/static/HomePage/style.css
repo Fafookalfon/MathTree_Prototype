@@ -5,6 +5,10 @@ header h1 {
     margin: 0px auto auto auto;
 }
 
+main {
+    padding : 40px;
+}
+
 a, a:hover, a:focus, a:active {
 text-align: center;
     color: inherit;
@@ -40,6 +44,7 @@ footer {
 
 footer a {
     display: inline;
+    text-decoration: underline;
     
 }
 
@@ -51,3 +56,11 @@ a.link_button {
     padding: 8px 5px;
 }
 
+div.center {
+    text-align: center;
+}
+
+a.return {
+    display: inline;
+    text-decoration: underline;
+}

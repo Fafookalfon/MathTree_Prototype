@@ -7,7 +7,7 @@
 
 <ol>
     {% for chapter in course.chapter_set.all %}
-    <li><a href = "{% url 'chapter_view' course.name chapter.index%}">{{chapter.name}}</a></li>
+    <li><a href = "{% url 'page_view' course.name chapter.index 1%}" class="chapter_list">{{chapter.name}}</a></li>
     {% endfor %}
 </ol>
 

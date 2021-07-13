@@ -20,6 +20,11 @@ div.oval_item .oval_item_content {
     margin: 0px auto 10px auto;
 }
 
+div.oval_item.proof {
+    background-color:rgba(128, 128, 128, 0.250);
+    padding: 0.5px 0 0.5px 3%;
+}
+
 /* Characteristics of Specific Oval Items*/
 
 div.oval_item.definition {
@@ -42,7 +47,7 @@ div.oval_item.theorem h3.oval_item_name {
 
 div.page_footer {
     text-align: center;
-    margin: 10px auto auto auto;
+    margin: 25px auto auto auto;
 }
 
 div.page_footer a {
@@ -59,4 +64,14 @@ div.page_footer .chapter_page {
 
 div.page_footer .before_button{
     display: inline;
+}
+
+/**/
+
+.course_list {
+    color:darkblue;
+}
+
+.chapter_list {
+    color:darkblue;
 }
