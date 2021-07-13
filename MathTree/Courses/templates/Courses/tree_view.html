@@ -3,25 +3,16 @@
 
 {% load static %}
 
+<p>Bienvenue sur l'arbre de MathTree !</p>
 
-<head>
-    <title>Basic sigma.js example</title>
-    <style type="text/css">
-      body {
-        margin: 0;
-      }
-      #container {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-   
-    <div id="container"></div>
-    <script type="text/javascript" src="{% static './Courses/sigma.min.js'%}"></script>
-    <script>
+<div id="tree_page_container">
+  <div class="future_iFrame">
+    <p>This will contain a future IFrame, which is great ! Finally works.</p>
+  </div>
+
+  <div id="container"></div>
+  <script type="text/javascript" src="{% static './Courses/sigma.min.js'%}"></script>
+  <script>
       
       const data_as_string = '{{ data|escapejs }}';
       const data_as_json = JSON.parse(data_as_string)
@@ -38,10 +29,8 @@
       // Finally, let's ask our sigma instance to refresh:
       s.refresh();
 
-    </script>
+  </script>
+  </div>
   
-  </body>
-  </html>
-
 
 {% endblock %}

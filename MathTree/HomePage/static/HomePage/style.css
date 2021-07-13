@@ -9,6 +9,32 @@ main {
     padding : 40px;
 }
 
+#tree_page_container {
+    position:relative;
+    display: block;
+    height: 600px;
+    padding: 0px 0px 0px 0px;
+}
+
+#container {
+    width: 74.3%;
+    height: 100%;
+    background-color: hsl(240, 20%, 80%);
+    float: right;
+    border-radius: 10px;
+    border: solid black 1.5px;
+}
+
+.future_iFrame {
+    
+    width:25%;
+    height:100%;
+    background-color: hsl(120, 20%, 80%);
+    float: left;
+    border-radius: 10px;
+    border: solid black 1.5px;
+}
+
 a, a:hover, a:focus, a:active {
 text-align: center;
     color: inherit;
