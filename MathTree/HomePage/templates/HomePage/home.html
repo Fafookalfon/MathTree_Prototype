@@ -1,6 +1,7 @@
 {% extends "HomePage/base.html" %}
 
 {% block content %}
+<main>
 <p>Bienvenue sur le site MathTree ! MathTree est un projet collaboratif visant à réaliser un ensemble de cours de mathématiques partant d'un niveau lycée jusqu'à des niveaux bien plus lointains.</p>
 <p>Le coeur de ce projet tient en deux objectifs : </p>
 <ul>
@@ -13,6 +14,6 @@
     <li><a href = "{% url 'courses' %}" class = "link_button">Accéder aux cours</a></li>
     <li><a href = "{% url 'comments' %}" class = "link_button">Nous contacter</a></li>
 </ul>
-
+</main>
 
 {% endblock %}
