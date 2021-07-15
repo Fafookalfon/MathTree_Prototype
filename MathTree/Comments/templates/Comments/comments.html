@@ -1,4 +1,22 @@
 {% extends "HomePage/base.html"%}
 {% block content %}
-<p>Hey so pretty soon you should be able to send us comments</p>
+<main>
+    <h1>Vos commentaires nous aident à améliorer notre contenu. Merci !</h1>
+
+    <form method="POST" action="{% url 'send_comment' %}">
+
+    <!-- choisir si c'est cours ou exercice -->
+    <!-- -->
+
+    <p>Pour s'assurer que vous ne soyez pas un robot : </p>
+    {% if operation == "plus" %}
+    <p>Combien fait {{grand_nombre_lettres}} auquel on ajoute {{petit_nombre_lettres}} ?</p>
+    {% elif operation == "moins" %}
+    <p>Combien fait {{grand_nombre_lettres}} auquel on soustrait {{petit_nombre_lettres}} ?</p>
+    {% endif %}
+    <input type="text" name="solution" minlength="1">
+    <button type="submit">ENVOYER</button>
+
+    </form>
+</main>
 {% endblock %}

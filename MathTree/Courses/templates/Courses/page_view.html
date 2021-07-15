@@ -143,6 +143,7 @@
 <a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.next_index %}" class = "after_button nav_button">Page Suivante</a>
 {% endif %}
 </div>
+<div class="center"><a href="{% url 'page_comment_view' page.chapter.course.name page.chapter.index page.index %}">Laisser un commentaire</a></div>
 <div class="center"><a href = "{% url 'course_view' page.chapter.course.name %}" class="return">Retourner à la page du cours</a></div>
 
 

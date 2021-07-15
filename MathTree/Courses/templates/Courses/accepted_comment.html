@@ -1,0 +1,8 @@
+{% extends "Courses/courses_base.html" %}
+{% block content_ %}
+
+<p>Your comment was accepted !</p>
+
+<a href="{% url 'page_comment_view' page.chapter.course.name page.chapter.index page.index %}">Return to the page</a>
+
+{% endblock %}
