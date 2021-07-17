@@ -12,11 +12,27 @@ File Structure :
 
 a.link_button {
     text-align: center;
-    font-weight: bold;
-    border: solid black 2px;
+    border: solid black 1.5px;
     border-radius: 10px;
     padding: 8px 5px;
+    font-weight: 550;
     text-decoration: none;
+}
+
+a.link_button:link {
+    color: darkred;
+}
+
+a.link_button:visited {
+    color: darkred;
+}
+
+a.link_button:hover {
+    background-color: hsla(200,50%,70%,0.2);
+}
+
+a.link_button:active {
+    
 }
 
 /* 1b - Functional */
@@ -29,7 +45,16 @@ a.link_button {
     display: inline;
 }
 
+.flex_center {
+    display: flex;
+    justify-content: center;
+}
+
 /* 2 - Setup of the base page */
+
+html {
+    background-color: hsla(0, 50%, 80%, 0.5);
+}
 
 header h1 {
     background-color: white;
@@ -37,45 +62,62 @@ header h1 {
     border: solid black 1.5px;
     text-align: center;
     color: darkred;
-    margin: 0px auto auto auto;
+    margin: 0px auto 10px auto;
     width: 98%;
     height: 30%;
 
 }
 
 main {
-    padding : 30px 12%;
+    padding : 20px 6%;
+    margin: auto 6%;
     position: relative;
-    
     text-align: justify;
     font-size: 20px;
+    background-color: white;
+    border-radius: 10px;
+    
 }
 
 
 footer {
     text-align: center;
-    margin: 20px auto auto auto;
+    margin: 30px auto 20px auto;
     font-size: 20px;
 }
 
 footer a {
     display: inline;
-    text-decoration: underline;
-    
+    color: darkblue;
+    text-decoration: none;
 }
+
+footer a:visited {
+    color:darkblue;
+}
+
+footer a:hover {
+    color:darkblue;
+    font-weight: bold;
+}
+
 
 /* 3 - Home Page settings */
 
-ul.inline {
-    text-align: center;
+ul.objectives li {
+    margin-top: 15px;
+}
+
+ul.homepage_buttons {
     margin: 50px 0px;
     padding: 0px 0px 0px 0px;
 }
 
-ul.inline li {
+ul.homepage_buttons li {
     display: inline;
-    margin: 0px 30px;
+    margin: 0px 12px;
 }
+
 
 /* 4 - Tree page setting : don't forget to end the main at the beginning and start the other one at the end. */
 
@@ -84,14 +126,14 @@ ul.inline li {
     display: block;
     height: 80vh;
     padding: 0px 0px 0px 0px;
-    margin: -5px 55px;
+    margin: 10px 55px;
 }
 
 #container {
     box-sizing: border-box;
     width: 74.8%;
     height: 100%;
-    background-color: hsl(240, 20%, 80%);
+    background-color: hsl(210, 80%, 95%);;
     float: right;
     border-radius: 10px;
     border: solid black 1.5px;
@@ -101,7 +143,7 @@ ul.inline li {
     box-sizing: border-box;
     width:24.8%;
     height:100%;
-    background-color: hsl(120, 20%, 80%);
+    background-color: hsl(210, 80%, 95%);
     float: left;
     border-radius: 10px;
     border: solid black 1.5px;
@@ -113,14 +155,24 @@ ul.inline li {
 
 /* 5a - Courses and Chapter lists */
 
-.course_list {
+.course_list a {
     color:darkblue;
     text-decoration: none;
 }
 
-.chapter_list {
+.course_list a:hover {
+    font-weight: bold;
+}
+
+
+
+.chapter_list a {
     color:darkblue;
     text-decoration: none;
+}
+
+.chapter_list a:hover {
+    font-weight: bold;
 }
 
 /* 5b - Item containers */
@@ -131,25 +183,26 @@ div.item_container {
     border-radius: 8px;
     background-color:rgba(128, 128, 128, 0.250);
     padding: 0px 0px 1px 0px;
-    
+    margin-bottom: 10px;   
 }
 
 div.item_container h3.item_container_name {
     background-color: rgba(128, 128, 128, 0.600);
     border-radius: 8px;
-    padding: 1px 3px 1px 10px ;
+    padding: 1px 10px 1px 10px ;
     margin: auto auto 10px auto;
+    text-align: left;
     
 }
 
 div.item_container .item_container_content {
-    padding: 0 0 0 3%;
+    padding: 0 3% 0 3%;
     margin: 0px auto 10px auto;
 }
 
 div.item_container.proof {
     background-color:rgba(128, 128, 128, 0.250);
-    padding: 0.5px 0 0.5px 3%;
+    padding: 0.5px 3% 0.5px 3%;
 }
 
 /* 5b2 - Specific Settings */
@@ -170,11 +223,47 @@ div.item_container.theorem h3.item_container_name {
     background-color: rgba(125, 171, 209, 0.700);
 }
 
-/* 5c - Footer buttons */
+/* 5b3 - Images */
+
+.image_center {
+    margin-top:10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 180px;
+    align-items: center;
+}
+
+.image_side {
+    display: flex;
+    justify-content:space-around;
+    
+    align-items: center;
+    margin: auto 10%;
+}
+
+.image_center img {
+    width:100%;
+    height: auto;
+}
+ 
+.image_side p {
+    width: 50%;
+}
+
+p.legend {
+    font-size: small;
+    color:gray;
+    width:100%;
+}
+
+
+/* 5c - Course_footers */
+
 
 div.nav_buttons {
     text-align: center;
-    margin: 30px auto 20px auto;
+    margin: 20px auto 20px auto;
 }
 
 div.nav_buttons a {
@@ -183,13 +272,50 @@ div.nav_buttons a {
     border: solid black 1.5px;
     padding: 5px;
     text-decoration: none;
+    color: darkred;
+    
+    
 }
 
-a.return:active {
-    text-decoration: underline;
+div.nav_buttons a:visited {
+    color: darkred;
 }
 
-a.return:hover {
+div.nav_buttons a:hover {
+    background-color: hsla(200,50%,70%,0.2);
+    font-weight: bold;
+}
+
+div.nav_buttons a.before_button{
+    margin-right: 30px;
+}
+
+.page_number {
+    font-size: large;
+}
+
+div.nav_buttons a.after_button{
+    margin-left: 30px;
+}
+
+a.return:link {
+    color:darkblue;
     text-decoration: none;
 }
 
+a.return:visited {
+    color: darkblue;
+}
+
+a.return:hover {
+    font-weight: bold;
+}
+
+
+
+
+/* 6 - Comments */
+
+textarea {
+    width:100%;
+}

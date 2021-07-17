@@ -10,18 +10,20 @@
     <li>Il continue de grandir jour après jour.</li>
 </ul>
 
-<ul class = "inline"><a href="{% url 'general_tree_view' %}" class="link_button">Voir l'arbre</a></ul>
+<div class="center"><a href="{% url 'general_tree_view' %}" class="link_button">Voir l'arbre</a></div>
 
+<div class="course_list">
 <p>Liste des cours disponibles :</p>
 
 {% if Courses_list %}
     
     <ul>
         {% for course in Courses_list %}
-        <li><a href="{% url 'course_view' course.name %}" class="course_list">{{course.name}}</a></li>
+        <li><a href="{% url 'course_view' course.name %}" title="{% for chapter in course.chapter_set.all %}{{forloop.counter}}. {{chapter.name}}&#10;{% endfor %}">{{course.name}}</a></li>
         {% endfor %}
     </ul>
 {% endif %}
+</div>
 
 <p>Et voilà du latex : \(\R\) </p>
 

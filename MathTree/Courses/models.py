@@ -93,7 +93,17 @@ class ChapterPage(models.Model) :
     def previous_index(self) : 
         return self.index - 1 
 
+class Comment(models.Model) : 
+    
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
+    page = models.ForeignKey(ChapterPage, on_delete=models.CASCADE)
+    
+    title = models.CharField(default="", max_length=200)
+    content = models.TextField(default = "")
 
+    def __str__(self) :
+        return self.title
 
 
 

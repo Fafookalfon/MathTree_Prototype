@@ -2,17 +2,15 @@
 {% block content_ %}
 
 {% load extras %}
-
-<h1>{{page.chapter.course.name}}</h1>
+{% load static %}
 
 {% if page.is_first_page %}
+<h1>{{page.chapter.course.name}}</h1>
 <p> {{page.chapter.description}}</p>
+<h2>Chapitre {{page.chapter.index}} : {{page.chapter.name}}</h2>
 {% endif %}
 
-<h2>Chapitre {{page.chapter.index}} : {{page.chapter.name}}, page {{page.index}} / {{page|get_last_page}}</h2>
-
 {% for item in page.content|parse_text_as_list %}
-
 
 {% if item|get_identifier == "theorem" %}
 <div class="theorem item_container">
@@ -118,6 +116,37 @@
 </div>
 {% endif %}
 
+{% if item|get_identifier == "image_center"%}
+<div class="flex_center">
+<div class="image_center">
+    <img src="{% static ''%}Courses/{{page.chapter.course.name}}/{{item|get_first_field}}">
+    <p class="legend">{{item|get_second_field}}</p>
+</div>
+</div>
+
+{% endif %}
+
+{% if item|get_identifier == "image_left" %}
+<div class="image_side">
+<div class="image_center">
+    <img src="{% static ''%}Courses/{{page.chapter.course.name}}/{{item|get_first_field}}">
+    <p class="legend">{{item|get_second_field}}</p>
+</div>
+    <p>{{item|get_third_field}}</p>
+</div>
+{% endif %}
+
+{% if item|get_identifier == "image_right" %}
+<div class="image_side">
+    <p>{{item|get_third_field}}</p>
+<div class="image_center">
+    <img src="{% static ''%}Courses/{{page.chapter.course.name}}/{{item|get_first_field}}">
+    <p class="legend">{{item|get_second_field}}</p>
+</div>
+</div>
+{% endif %}
+
+
 {% if item|get_identifier == "exercise" %}
 <div class="exercise">
 <p>Exercice : {{item|get_first_field}}</p>
@@ -134,17 +163,34 @@
 {% endfor %}
 
 
-
+<div class="course_footers">
 <div class="nav_buttons">
-{% if not page.is_first_page %}
-<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.previous_index %}" class = "before_button nav_button">Page Précédente</a>
-{% endif %}
-{% if not page.is_last_page %}
-<a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.next_index %}" class = "after_button nav_button">Page Suivante</a>
-{% endif %}
+    {% if not page.is_first_page %}
+    <a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.previous_index %}" class = "before_button nav_button">Page Précédente</a>
+    {% endif %}
+    <div class="page_number inline">
+        {{page.index}} / {{page|get_last_page}} 
+    </div>
+    {% if not page.is_last_page %}
+    <a href = "{% url 'page_view' page.chapter.course.name page.chapter.index page.next_index %}" class = "after_button nav_button">Page Suivante</a>
+    {% endif %}
 </div>
-<div class="center"><a href="{% url 'page_comment_view' page.chapter.course.name page.chapter.index page.index %}">Laisser un commentaire</a></div>
-<div class="center"><a href = "{% url 'course_view' page.chapter.course.name %}" class="return">Retourner à la page du cours</a></div>
 
+<!--
+<div class="course_footer">
+
+<div class="pagination center">
+<p>
+{{page.chapter.course.name}}<br>
+Chapitre {{page.chapter.index}} : {{page.chapter.name}}<br>
+
+</p>
+</div>
+
+</div>
+-->
+<div class="center"><a href="{% url 'page_comment_view' page.chapter.course.name page.chapter.index page.index %}" class="return">Signaler une erreur</a></div>
+<div class="center"><a href = "{% url 'course_view' page.chapter.course.name %}" class="return">Retourner à la page du cours</a></div>
+</div>
 
 {% endblock %}

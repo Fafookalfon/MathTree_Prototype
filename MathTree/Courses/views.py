@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.list import ListView
-from .models import Course, Chapter, ChapterPage, Prerequisite
+from .models import Course, Chapter, ChapterPage, Prerequisite, Comment
 import json
 from random import randint
 
@@ -33,6 +33,7 @@ def exercises_view(request, course_name) :
     return render(request, 'Courses/exercises_view.html', {"course" : course})
 
 def page_comment_view(request, course_name, chapter_index, page_index ) :
+
     page = ChapterPage.objects.filter(chapter__course__name=course_name, chapter__index=chapter_index, index=page_index).first()
     captcha = enigma()
     return render(request, 'Courses/page_comment.html', {"page" : page, "grand_nombre_lettres" : captcha.get("grand_nombre_lettres"), "petit_nombre_lettres" :  captcha.get("petit_nombre_lettres"), "operation" :  captcha.get("operation"), "solution" :  captcha.get("solution")})
@@ -44,19 +45,14 @@ def send_comment(request, course_name, chapter_index, page_index, solution) :
     page = chapter.chapterpage_set.filter(index=page_index).first()
 
     if not request.method == 'POST' :
-        print("NOT POST")
-        return render(request, "Courses/rejected_comment.html", {"page" : page})
+        return render(request, "Courses/comment_feedback.html", {"page" : page, "comment_feedback" : "Quelque chose n'a pas marché..."})
     
     if str(request.POST.get("solution")) != str(solution) :
-        print("NOT SOlUTION")
-        return render(request, "Courses/rejected_comment.html", {"page" : page})
-
-    '''
-    new_comment = Comment(page = page, name = request.POST.get("name"), content= request.POST.get("content"))
-    new_comment.save()
-    '''
+        return render(request, "Courses/comment_feedback.html", {"page" : page, "comment_feedback" : "Quelque chose n'a pas marché..."})
     
-    return render(request, "Courses/accepted_comment.html", {"page" : page}) 
+    new_comment = Comment(course=course, chapter=chapter, page= page, title=request.POST.get("title"), content=request.POST.get("content"))
+    new_comment.save()
+    return render(request, "Courses/comment_feedback.html", {"page" : page, "comment_feedback" : "Merci pour votre commentaire !"}) 
 
 ### This is dedicated to generating all the json necessary for the tree rendering. ###
 

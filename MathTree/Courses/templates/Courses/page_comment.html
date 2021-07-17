@@ -9,21 +9,26 @@
 <li>Du cours : {{page.chapter.course.name}}</li>
 </ul>
 
-<form method="POST" action="{% url 'send_comment' page.chapter.course.name page.chapter.index page.index solution %}" >
+<form method="POST" action="{% url 'send_comment' page.chapter.course.name page.chapter.index page.index solution %}" class="comment_page">
 
     {% csrf_token %}
-
-    <input type="text" name="title" minlength="1">
-    <input type="textarea" name="content" rows="10" cols="10">
-    <p>Pour s'assurer que vous ne soyez pas un robot : </p>
+    <p>Titre du commentaire</p>
+    <input type="text" id="title" name="title" minlength="1" class="inline">
+    <br>
+    <p>Contenu</p>
+    <textarea name="content" rows="10" cols="30"  class="inline"></textarea>
+    <p>Votre adresse mail (pour que nous puissions éventuellement vous répondre...)</p>
+    <input type="text" name="email">
+    <p>Pour s'assurer que vous ne soyez pas un robot : 
     {% if operation == "plus" %}
-    <p>Combien fait {{grand_nombre_lettres}} auquel on ajoute {{petit_nombre_lettres}} ?</p>
+    Combien fait {{grand_nombre_lettres}} auquel on ajoute {{petit_nombre_lettres}} ?</p>
     {% elif operation == "moins" %}
-    <p>Combien fait {{grand_nombre_lettres}} auquel on soustrait {{petit_nombre_lettres}} ?</p>
+    Combien fait {{grand_nombre_lettres}} auquel on soustrait {{petit_nombre_lettres}} ?</p>
     {% endif %}
-    <p>Repondre en chiffres arabes (1,2,3,34...), et non pas en toute lettres.</p>
+    <p><i>Repondre en chiffres arabes (1,2,3,34...), et non pas en toute lettres.</i></p>
     <input type="text" name="solution" minlength="1">
-    <button type="submit">Envoyer</button>
+    <br>
+    <div class="center"><button type="submit">Envoyer</button></div>
 </form>
 
 <a href="{% url 'page_view' page.chapter.course.name page.chapter.index page.index %}">Retourner à la page du cours</a>
