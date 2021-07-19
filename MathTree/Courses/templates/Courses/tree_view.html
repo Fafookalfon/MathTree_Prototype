@@ -6,8 +6,13 @@
 <p>Bienvenue sur l'arbre de MathTree !</p>
 </main>
 <div id="tree_page_container">
-  <div class="future_iFrame">
-    <p>This will contain a future IFrame, which is great ! Finally works.</p>
+  <div class="iFrame_container">
+    <iframe id="tree_iframe"
+      title="tree_iframe"
+      width="99%"
+      height="100%"
+      src=""> 
+    </iframe>
   </div>
 
   <div id="container"></div>
@@ -38,19 +43,21 @@
       // Finally, let's ask our sigma instance to refresh:
       s.refresh();
 
+      s.bind('clickNode', function(e) {
+        url = "/courses/general_tree_view/tree_course/"
+        url += encodeURIComponent(e.data.node.id)
+        document.getElementById('tree_iframe').src = url;       
+      });
+
       s.bind('clickEdge', function(e) {
-        // Get Edge 
-        document.getElementById('tree_page_container').innerHTML = 'hi';
+        url = "/courses/general_tree_view/tree_prerequisite/"
+        url += encodeURIComponent(e.data.edge.source)
+        url += "/"
+        url += encodeURIComponent(e.data.edge.target)
+        document.getElementById('tree_iframe').src = url;       
+      });
 
-        s.refresh();        
-    });
-
-    s.bind('clickNode', function(e) {
-        // Get Edge 
-        document.getElementById('tree_page_container').innerHTML = 'hi';
-
-        s.refresh();        
-    });
+    
     
 
   </script>

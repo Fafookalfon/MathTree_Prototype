@@ -121,6 +121,9 @@ ul.homepage_buttons li {
 
 /* 4 - Tree page setting : don't forget to end the main at the beginning and start the other one at the end. */
 
+ 
+/* 4a - Tree General layout */
+
 #tree_page_container {
     position:relative;
     display: block;
@@ -131,24 +134,47 @@ ul.homepage_buttons li {
 
 #container {
     box-sizing: border-box;
-    width: 74.8%;
+    width: 69.8%;
     height: 100%;
-    background-color: hsl(210, 80%, 95%);;
+    background-color: hsl(210, 80%, 95%);
     float: right;
     border-radius: 10px;
     border: solid black 1.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.future_iFrame {
+.iFrame_container {
     box-sizing: border-box;
-    width:24.8%;
+    width:29.8%;
     height:100%;
-    background-color: hsl(210, 80%, 95%);
+    background-color: white;
     float: left;
     border-radius: 10px;
     border: solid black 1.5px;
+    overflow: hidden;
 }
 
+iframe {
+    overflow: hidden;
+}
+
+/* 4b - Tree subwindow layout */
+
+html.tree {
+    background-color: hsl(210, 80%, 95%);
+}
+
+body.tree {
+    background-color: white;
+    border-radius: 5px;
+    margin:5%;
+}
+
+main.tree {
+    
+}
 
 
 /* 5 - Courses Settings */

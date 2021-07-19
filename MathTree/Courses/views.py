@@ -54,6 +54,14 @@ def send_comment(request, course_name, chapter_index, page_index, solution) :
     new_comment.save()
     return render(request, "Courses/comment_feedback.html", {"page" : page, "comment_feedback" : "Merci pour votre commentaire !"}) 
 
+def tree_course_view(request, course_name) :
+    course = Course.objects.filter(name=course_name).first()
+    return render(request, "Courses/tree_course.html", {"course":course})
+
+def tree_prerequisite_view(request, prerequisite_name, target_name) :
+    prerequisite = Prerequisite.objects.filter(prerequisite__name=prerequisite_name, target__name=target_name).first()
+    return render(request, "Courses/tree_prerequisite.html", {"prerequisite":prerequisite})
+    
 ### This is dedicated to generating all the json necessary for the tree rendering. ###
 
 def prerequisite_to_json(Prerequisite) :
