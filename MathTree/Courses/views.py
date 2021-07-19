@@ -62,6 +62,8 @@ def prerequisite_to_json(Prerequisite) :
     result.update({"id" : f"{Prerequisite.prerequisite.name} to {Prerequisite.target.name}" })
     result.update({"source" : Prerequisite.prerequisite.name})
     result.update({"target" : Prerequisite.target.name})
+    result.update({"size" : 3})
+    result.update({"hover_color" : "#0000FF"})
 
     return result
 
@@ -72,7 +74,7 @@ def course_to_json(course) :
     result.update({"label" : course.name})
     result.update({"x" : course.x_position})
     result.update({"y" : course.y_position})
-    result.update({"size" : 3})
+    result.update({"size" : 6})
 
     return result
 
