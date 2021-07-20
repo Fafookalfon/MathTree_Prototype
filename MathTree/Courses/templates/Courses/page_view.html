@@ -165,14 +165,30 @@
 
     {{item|get_first_field}}
 
+    <script>
+        openMCQchoice = function(event) {
+            event.target.parentNode.children[1].style.display = 'block'
+            event.target.parentNode.children[0].removeEventListener('click', openMCQchoice);
+            event.target.parentNode.children[0].addEventListener('click', closeMCQchoice);
+        }
+
+        closeMCQchoice = function(event) {
+            event.target.parentNode.children[1].style.display = 'none'
+            event.target.parentNode.children[0].removeEventListener('click', closeMCQchoice);
+            event.target.parentNode.children[0].addEventListener('click', openMCQchoice);
+        }
+    </script>
+
     {% for choice in item|get_second_field|shuffle_list %}
 
-    <div id="{{item|get_first_field}} {{forloop.counter}}">
-        <p class="choice">{{choice|get_zero_field}}</p>
-        <p class="answer {{choice|get_first_field}}">{{choice|get_second_field}}</p>
+    <div id="{{item|get_first_field}} div {{forloop.counter}}">
+        <div id="{{item|get_first_field}} choice {{forloop.counter}}">{{choice|get_zero_field}}</div>
+        <div id="{{item|get_first_field}} answer {{forloop.counter}}" class="answer {{choice|get_first_field}}">{{choice|get_second_field}}</div>
     </div>
     <script>
-        document.getElementById('{{item|get_first_field|escapejs}} {{forloop.counter|escapejs}}').addEventListener('click', (event) => event.target.children[1].style.display = 'none');
+
+        document.getElementById('{{item|get_first_field|escapejs}} choice {{forloop.counter|escapejs}}').addEventListener('click', openMCQchoice);
+        
     </script>
 
     {% endfor %}
