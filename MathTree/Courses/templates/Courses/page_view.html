@@ -160,6 +160,26 @@
 </div>
 {% endif %}
 
+{% if item|get_identifier == "MCQ" %}
+<div class="MCQ item_container">
+
+    {{item|get_first_field}}
+
+    {% for choice in item|get_second_field|shuffle_list %}
+
+    <div id="{{item|get_first_field}} {{forloop.counter}}">
+        <p class="choice">{{choice|get_zero_field}}</p>
+        <p class="answer {{choice|get_first_field}}">{{choice|get_second_field}}</p>
+    </div>
+    <script>
+        document.getElementById('{{item|get_first_field|escapejs}} {{forloop.counter|escapejs}}').addEventListener('click', (event) => event.target.children[1].style.display = 'none');
+    </script>
+
+    {% endfor %}
+
+</div>
+{% endif %}
+
 {% endfor %}
 
 

@@ -249,7 +249,21 @@ div.item_container.theorem h3.item_container_name {
     background-color: rgba(125, 171, 209, 0.700);
 }
 
-/* 5b3 - Images */
+/* 5b3 - Exercises and MCQs */
+
+p.answer {
+    /*display: none;*/
+}
+
+p.answer.Correct {
+    background-color: green;
+}
+
+p.answer.Incorrect {
+    background-color: red;
+}
+
+/* 5b4 - Images */
 
 .image_center {
     margin-top:10px;

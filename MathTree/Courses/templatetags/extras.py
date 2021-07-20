@@ -1,6 +1,8 @@
 from django.template import Library
 import ast
 from ..models import *
+import random
+
 register = Library()
 
 @register.filter
@@ -43,3 +45,9 @@ def get_last_page(selected_page) :
             if page.index > last : last = page.index
         
         return last
+
+@register.filter
+def shuffle_list(listo) :
+
+    newlist = random.shuffle(listo)
+    return listo
