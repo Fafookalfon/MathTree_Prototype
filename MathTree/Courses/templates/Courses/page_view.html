@@ -18,9 +18,9 @@
 <div class="item_container_content">
 <p>{{item|get_second_field}}</p>
 </div>
-</div>
 <div class="item_container proof">
 <p>Preuve : {{item|get_third_field}}</p>
+</div>
 </div>
 {% endif %}
 
@@ -35,7 +35,7 @@
 {% endfor%}
 </ol>
 </div>
-</div>
+
 <div class="item_container proof">
 <p>Preuves : </p>
 <ol>
@@ -43,6 +43,7 @@
 <li> {{proof}}</li>
 {% endfor%}
 </ol>
+</div>
 </div>
 
 
@@ -54,11 +55,11 @@
 <div class="item_container_content">
 <p>{{item|get_second_field}}</p>
 </div>
-</div>
+
 <div class="item_container proof">
 <p>Preuve : {{item|get_third_field}}</p>
 </div>
-
+</div>
 {% endif %}
 
 {% if item|get_identifier == "proposition_list" %}
@@ -70,7 +71,7 @@
 <li>{{proposition}}</li>
 {% endfor%}
 </ol>
-</div>
+
 </div>
 <div class="item_container proof">
 <p>Preuves : </p>
@@ -79,6 +80,7 @@
 <li>{{proof}}</li>
 {% endfor%}
 </ol>
+</div>
 </div>
 
 
@@ -163,28 +165,34 @@
 {% if item|get_identifier == "MCQ" %}
 <div class="MCQ item_container">
 
-    {{item|get_first_field}}
+    <div class="MCQ_question">
+        {{item|get_first_field}}
+    </div>
 
     <script>
         openMCQchoice = function(event) {
-            event.target.parentNode.children[1].style.display = 'block'
-            event.target.parentNode.children[0].removeEventListener('click', openMCQchoice);
-            event.target.parentNode.children[0].addEventListener('click', closeMCQchoice);
+            event.target.parentNode.querySelector('.MCQ_answer').style.display = 'block'
+            if (event.target.parentNode.querySelector('.MCQ_choice.Correct')) { event.target.parentNode.querySelector('.MCQ_choice.Correct').style.backgroundColor = '#cdf1cb'; }
+            if (event.target.parentNode.querySelector('.MCQ_choice.Incorrect')) {event.target.parentNode.querySelector('.MCQ_choice.Incorrect').style.backgroundColor = '#fddfd5'; }
+            event.target.parentNode.querySelector('.MCQ_choice').removeEventListener('click', openMCQchoice);
+            event.target.parentNode.querySelector('.MCQ_choice').addEventListener('click', closeMCQchoice);
         }
 
         closeMCQchoice = function(event) {
-            event.target.parentNode.children[1].style.display = 'none'
-            event.target.parentNode.children[0].removeEventListener('click', closeMCQchoice);
-            event.target.parentNode.children[0].addEventListener('click', openMCQchoice);
+            if(event.target.parentNode.querySelector('.MCQ_choice')) {event.target.parentNode.querySelector('.MCQ_choice').style.backgroundColor = 'white'}
+            event.target.parentNode.querySelector('.MCQ_answer').style.display = 'none'
+            event.target.parentNode.querySelector('.MCQ_choice').removeEventListener('click', closeMCQchoice);
+            event.target.parentNode.querySelector('.MCQ_choice').addEventListener('click', openMCQchoice);
         }
     </script>
 
     {% for choice in item|get_second_field|shuffle_list %}
 
-    <div id="{{item|get_first_field}} div {{forloop.counter}}">
-        <div id="{{item|get_first_field}} choice {{forloop.counter}}">{{choice|get_zero_field}}</div>
-        <div id="{{item|get_first_field}} answer {{forloop.counter}}" class="answer {{choice|get_first_field}}">{{choice|get_second_field}}</div>
+    <div class="MCQ_selection">
+        <div class="MCQ_choice {{choice|get_first_field}}" id="{{item|get_first_field}} choice {{forloop.counter}}">{{choice|get_zero_field}}</div>
+        <div class="MCQ_answer {{choice|get_first_field}}">{{choice|get_second_field}}</div>
     </div>
+
     <script>
 
         document.getElementById('{{item|get_first_field|escapejs}} choice {{forloop.counter|escapejs}}').addEventListener('click', openMCQchoice);
@@ -194,6 +202,10 @@
     {% endfor %}
 
 </div>
+{% endif %}
+
+{% if item|get_identifier == "skipline" %}
+<br>
 {% endif %}
 
 {% endfor %}

@@ -227,8 +227,10 @@ div.item_container .item_container_content {
 }
 
 div.item_container.proof {
-    background-color:rgba(128, 128, 128, 0.250);
+    background-color:rgb(241, 241, 241);
     padding: 0.5px 3% 0.5px 3%;
+    margin-left: 2%; 
+    margin-right: 2%;
 }
 
 /* 5b2 - Specific Settings */
@@ -249,19 +251,35 @@ div.item_container.theorem h3.item_container_name {
     background-color: rgba(125, 171, 209, 0.700);
 }
 
+div.item_container.MCQ {
+    background-color: whitesmoke;
+    border: dotted black 1.5px;
+}
+
 /* 5b3 - Exercises and MCQs */
 
-div.answer {
+/* 5b31 - Exercises */
+
+/* 5b32 - MCQ */
+
+div.MCQ_question {
+    text-align: center;
+    padding: 2% 2%;
+}
+
+div.MCQ_choice {
+    background-color: white;
+    border-radius: 4px ;
+    padding: 2%;
+    margin: 2%;
+}
+
+div.MCQ_answer {
     display: none;
+    margin: 2% 6%;
 }
 
-div.answer.Correct {
-    background-color: green;
-}
 
-div.answer.Incorrect {
-    background-color: red;
-}
 
 /* 5b4 - Images */
 
@@ -289,6 +307,8 @@ div.answer.Incorrect {
  
 .image_side p {
     width: 50%;
+    padding-left: 10% ;
+    padding-right: 10%;
 }
 
 p.legend {
