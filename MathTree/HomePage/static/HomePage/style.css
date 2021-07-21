@@ -126,7 +126,7 @@ ul.homepage_buttons li {
 
 #tree_page_container {
     position:relative;
-    display: block;
+    display: flex;
     height: 80vh;
     padding: 0px 0px 0px 0px;
     margin: 10px 55px;
@@ -134,10 +134,9 @@ ul.homepage_buttons li {
 
 #container {
     box-sizing: border-box;
-    width: 69.8%;
+    width: 60.8%;
     height: 100%;
     background-color: hsl(210, 80%, 95%);
-    float: right;
     border-radius: 10px;
     border: solid black 1.5px;
     display: flex;
@@ -147,10 +146,9 @@ ul.homepage_buttons li {
 
 .iFrame_container {
     box-sizing: border-box;
-    width:29.8%;
+    width:19.8%;
     height:100%;
     background-color: white;
-    float: left;
     border-radius: 10px;
     border: solid black 1.5px;
     overflow: hidden;
@@ -158,6 +156,15 @@ ul.homepage_buttons li {
 
 iframe {
     overflow: hidden;
+}
+
+.tree_path_interface {
+    box-sizing: border-box;
+    width: 19.8%;
+    height: 100%;
+    background-color: white;
+    border-radius: 10px;
+    border: solid black 1.5px;
 }
 
 /* 4b - Tree subwindow layout */

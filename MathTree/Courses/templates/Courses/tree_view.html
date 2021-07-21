@@ -6,6 +6,7 @@
 <p>Bienvenue sur l'arbre de MathTree !</p>
 </main>
 <div id="tree_page_container">
+
   <div class="iFrame_container">
     <iframe id="tree_iframe"
       title="tree_iframe"
@@ -56,12 +57,93 @@
         url += encodeURIComponent(e.data.edge.target)
         document.getElementById('tree_iframe').src = url;       
       });
+  </script>
 
-    
-    
+<div class="tree_path_interface">
+  <div>List of the courses I know</div>
+  <ul id="list_prerequisites">
+  </ul>
+  <button id="select_prerequisites">Select Prerequisites</button>
+  <button id="remove_prerequisite">Delete last Prerequisite</button>
+  <div>The course I want to learn</div>
+  <div id="target_display"></div>
+  <button id="select_target">Select Target</button>
+  <button id="compute_path">Compute Path</button>
+  <div id="display_path"></div>
+
+  
+  <script>
+
+    let list_prerequisites = [];
+    let target = undefined;
+
+    function add_prerequisites(e) {
+      let new_prerequisite = document.createElement("li");
+      new_prerequisite.innerHTML = e.data.node.id;
+      if (!list_prerequisites.includes(e.data.node.id)) {
+        list_prerequisites.push(e.data.node.id);
+        document.querySelector('#list_prerequisites').appendChild(new_prerequisite);
+    }}
+
+    function stop_add_prerequisites() {
+      s.unbind('clickNode', add_prerequisites)
+      document.querySelector("#select_prerequisites").innerHTML = "Add more";
+      document.querySelector("#select_prerequisites").onclick = start_add_prerequisites;
+    }
+
+    function start_add_prerequisites() {
+      s.unbind('clickNode', select_target);
+      s.bind('clickNode', add_prerequisites);
+      document.querySelector("#select_prerequisites").innerHTML = "Done";
+      document.querySelector("#select_prerequisites").onclick = stop_add_prerequisites;
+    }
+
+    function start_select_target() {
+      s.unbind('clickNode', add_prerequisites);
+      s.bind('clickNode', select_target);
+      document.querySelector("#select_target").innerHTML = "Done";
+      document.querySelector("#select_target").onclick = stop_select_target;
+    }
+
+    function stop_select_target() {
+      s.unbind('clickNode', select_target);
+      document.querySelector("#select_target").innerHTML = "Select_target";
+      document.querySelector("#select_target").onclick = start_select_target;
+    }
+
+    function select_target(e) {
+      target = e.data.node.id; 
+      document.querySelector("#target_display").innerHTML = target;
+    }
+
+    function delete_last_prerequisite() {
+      if (list_prerequisites.length > 0) {
+        list_prerequisites.pop();
+        select = document.querySelector('#list_prerequisites');
+        select.removeChild(select.lastChild);
+      }
+    }
+
+    document.querySelector("#select_prerequisites").onclick = start_add_prerequisites;
+    document.querySelector("#select_target").onclick = start_select_target;
+    document.querySelector('#remove_prerequisite').onclick = delete_last_prerequisite;
+  </script>
+  <script type="text/javascript" src="{% static './Courses/tree_percourse.js'%}"></script>
+  <script>
+
+    document.querySelector("#compute_path").addEventListener('click', function() {
+      path = get_ordered_path(data_as_json, list_prerequisites, target);
+      document.querySelector("#display_path").innerHTML = path.toString();
+    });
 
   </script>
+
+
+</div>
+
   </div>
+
+  
 
 
 {% endblock %}
