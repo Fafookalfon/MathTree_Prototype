@@ -16,7 +16,6 @@
 <p>Liste des cours disponibles :</p>
 
 {% if Courses_list %}
-    
     <ul>
         {% for course in Courses_list %}
         <li><a href="{% url 'course_view' course.name %}" title="{% for chapter in course.chapter_set.all %}{{forloop.counter}}. {{chapter.name}}&#10;{% endfor %}">{{course.name}}</a></li>

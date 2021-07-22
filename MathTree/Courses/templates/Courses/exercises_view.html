@@ -1,10 +1,11 @@
 {% extends "Courses/courses_base.html" %}
 {% block content_ %}
 
-{% load extras %}
-{% for chapter in course.chapter_set.all %}
+<h1>{{course.name}}</h1>
 
-<p><strong>Exercices sur le chapitre : {{chapter.name}}</strong></p>
+{% load extras %}
+
+<h2>Exercices sur le chapitre : {{chapter.name}}</h2>
 {% for exercise in chapter.exercise_set.all %}
 <div class = "exercise">
 <p>Exercice {{forloop.counter}} : {{exercise.name}}, Difficulté : {{exercise.difficulty}}</p>
@@ -24,7 +25,6 @@
 {% endfor %}
 </ol>
 </div>
-{% endfor %}
 {% endfor %}
 
 

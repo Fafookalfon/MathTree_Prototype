@@ -27,10 +27,11 @@ def page_view(request, course_name, chapter_index, page_index) :
     page = ChapterPage.objects.filter(chapter__course__name=course_name, chapter__index=chapter_index, index=page_index).first()
     return render(request, 'Courses/page_view.html', {"page" : page})
 
-def exercises_view(request, course_name) :
+def exercises_view(request, course_name, chapter_index) :
 
     course = Course.objects.filter(name=course_name).first()
-    return render(request, 'Courses/exercises_view.html', {"course" : course})
+    chapter = Chapter.objects.filter( course__name=course_name, index=chapter_index).first()
+    return render(request, 'Courses/exercises_view.html', {"course" : course, "chapter":chapter})
 
 def page_comment_view(request, course_name, chapter_index, page_index ) :
 
@@ -54,6 +55,9 @@ def send_comment(request, course_name, chapter_index, page_index, solution) :
     new_comment.save()
     return render(request, "Courses/comment_feedback.html", {"page" : page, "comment_feedback" : "Merci pour votre commentaire !"}) 
 
+def tree_home_view(request) :
+    return render(request, "Courses/tree_right_home.html")
+
 def tree_course_view(request, course_name) :
     course = Course.objects.filter(name=course_name).first()
     return render(request, "Courses/tree_course.html", {"course":course})
@@ -71,7 +75,8 @@ def prerequisite_to_json(Prerequisite) :
     result.update({"source" : Prerequisite.prerequisite.name})
     result.update({"target" : Prerequisite.target.name})
     result.update({"size" : 3})
-    result.update({"hover_color" : "#0000FF"})
+    result.update({"hover_color" : "#35F210"})
+    result.update({"type" : "arrow"})
 
     return result
 
@@ -99,6 +104,7 @@ def generate_tree_data_as_json() :
     return json.dumps(result)
 
 def general_tree_view(request) : 
+
     return render(request, "Courses/tree_view.html", context = {"data" : generate_tree_data_as_json()})
 
 ### Those functions are pure utilities. ###

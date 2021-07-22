@@ -25,8 +25,14 @@
 
 <p>Le cours est également accompagné d'une feuille d'exercices corrigés, avec indications.</p>
 
-<p>Exercices :</p>
+<h2>Exercices</h2>
 
-<a href = "{% url 'exercises_view' course.name%}">Voila les exercices.</a>
+<div class="exercise_list">
+<ol>
+    {% for chapter in course.chapter_set.all %}
+    <li><a href = "{% url 'exercises_view' course.name chapter.index%}">{{chapter.name}}</a></li>
+    {% endfor %}
+</ol>
+</div>
 
 {% endblock %}

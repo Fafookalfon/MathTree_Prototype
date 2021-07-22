@@ -4,144 +4,202 @@
 {% load static %}
 
 <p>Bienvenue sur l'arbre de MathTree !</p>
+<p>Vous trouverez ci-dessous l'outil pédagogique principal de notre site. C'est un <strong>arbre</strong> orienté dont les noeuds sont les différents cours que nous proposons, et dont les arêtes sont les prérequis : il existe une arête allant du cours A vers le cours B si et seulement si le cours A est un prérequis pour le cours B. Voilà comment s'en servir :</p>
+<ul>
+  <li>La <strong>fenêtre du centre</strong> vous donne une vue sur ce fameux arbre. Vous pouvez zoomer, dézoomer ou vous déplacer en vous servant de la molette.</li>
+  <li>Cliquez sur un noeud ou sur une arête pour voir le rôle de la <strong>fenêtre de gauche</strong> : vous y trouverez un descriptif du cours / une explication de la présence de tel ou tel prérequis.</li>
+  <li>La <strong>fenêtre de droite</strong> est la plus importante : vous pouvez y sélectionner un ensemble de cours formant vos prérequis, et un cours que vous souhaitez découvrir : on vous affichera automatiquement le chemin d'apprentissage à suivre pour aborder ce cours avec tous les prérequis en main.</li>
+</ul>
 </main>
 <div id="tree_page_container">
 
   <div class="iFrame_container">
+
     <iframe id="tree_iframe"
       title="tree_iframe"
       width="99%"
       height="100%"
-      src=""> 
+      src="{% url 'tree_home_view'%}"> 
     </iframe>
   </div>
 
+
   <div id="container"></div>
-  <script type="text/javascript" src="{% static './Courses/sigma.min.js'%}"></script>
-  <script type="text/javascript" src="{% static './Courses/sigma.renderers.canvas.js'%}"></script>
-  <script>
-      
-      const data_as_string = '{{ data|escapejs }}';
-      const data_as_json = JSON.parse(data_as_string)
-      
-      // Let's first initialize sigma:
 
-      const s = new sigma({ 
-        graph: data_as_json,
-        renderer: {
-          container: document.getElementById('container'),
-          type: 'canvas'
-        },
+    <script type="text/javascript" src="{% static './Courses/sigma.min.js'%}"></script>
+    <script type="text/javascript" src="{% static './Courses/sigma.renderers.canvas.js'%}"></script>
+    <script>
+        
+        const data_as_string = '{{ data|escapejs }}';
+        const data_as_json = JSON.parse(data_as_string)
+        
+        // Let's first initialize sigma:
 
-        settings: {
-            enableEdgeHovering: true,
-            edgeHoverSizeRatio: '3',
-            defaultEdgeType:'line',
-            defaultEdgeHoverColor: '#0000FF',
-            
+        const s = new sigma({ 
+          graph: data_as_json,
+          renderer: {
+            container: document.getElementById('container'),
+            type: 'canvas'
+          },
+
+          settings: {
+              enableEdgeHovering: true,
+              edgeHoverSizeRatio: '5',
+              defaultEdgeType:'line',
+              defaultEdgeHoverColor: '#0000FF',
+              minArrowSize: 7,
+              edgeColor: 'target',
+              
+          }
+        });
+        // Finally, let's ask our sigma instance to refresh:
+        s.refresh();
+
+        s.bind('clickNode', function(e) {
+          url = "/courses/general_tree_view/tree_course/"
+          url += encodeURIComponent(e.data.node.id)
+          document.getElementById('tree_iframe').src = url;       
+        });
+
+        s.bind('clickEdge', function(e) {
+          url = "/courses/general_tree_view/tree_prerequisite/"
+          url += encodeURIComponent(e.data.edge.source)
+          url += "/"
+          url += encodeURIComponent(e.data.edge.target)
+          document.getElementById('tree_iframe').src = url;       
+        });
+    </script>
+
+
+  <div id="tree_path_interface">
+
+    <div id="my_prerequisites"><h1>My prerequisites</h1></div>
+    <ul id="list_prerequisites" class="tree_path_item">
+    </ul>
+    <button id="select_prerequisites">Select Prerequisites</button>
+    <button id="remove_prerequisite">Delete last Prerequisite</button>
+    <div id="my_target"><h1>My Target</h1></div>
+    <div id="target_display" class="tree_path_item"></div>
+    <button id="select_target">Select Target</button>
+    <div id="my_path"><h1>My Path</h1></div>
+    <button id="compute_path">Compute Path</button>
+    <div id="display_path" class="tree_path_item" >
+      <p>In order to get from your prerequisites to your target, here's the path we suggest you follow :</p>
+      <ul id="path">
+
+      </ul> 
+    </div>
+
+    
+    <script>
+
+      let list_prerequisites = [];
+      let target = undefined;
+
+      function add_prerequisites(e) {
+        let new_prerequisite = document.createElement("li");
+        
+        new_prerequisite.innerHTML = e.data.node.id;
+        if (!list_prerequisites.includes(e.data.node.id)) {
+          list_prerequisites.push(e.data.node.id);
+          document.querySelector('#list_prerequisites').appendChild(new_prerequisite);
+          e.data.node.color="darkred";
         }
-      });
-      // Finally, let's ask our sigma instance to refresh:
-      s.refresh();
 
-      s.bind('clickNode', function(e) {
-        url = "/courses/general_tree_view/tree_course/"
-        url += encodeURIComponent(e.data.node.id)
-        document.getElementById('tree_iframe').src = url;       
-      });
-
-      s.bind('clickEdge', function(e) {
-        url = "/courses/general_tree_view/tree_prerequisite/"
-        url += encodeURIComponent(e.data.edge.source)
-        url += "/"
-        url += encodeURIComponent(e.data.edge.target)
-        document.getElementById('tree_iframe').src = url;       
-      });
-  </script>
-
-<div class="tree_path_interface">
-  <div>List of the courses I know</div>
-  <ul id="list_prerequisites">
-  </ul>
-  <button id="select_prerequisites">Select Prerequisites</button>
-  <button id="remove_prerequisite">Delete last Prerequisite</button>
-  <div>The course I want to learn</div>
-  <div id="target_display"></div>
-  <button id="select_target">Select Target</button>
-  <button id="compute_path">Compute Path</button>
-  <div id="display_path"></div>
-
-  
-  <script>
-
-    let list_prerequisites = [];
-    let target = undefined;
-
-    function add_prerequisites(e) {
-      let new_prerequisite = document.createElement("li");
-      new_prerequisite.innerHTML = e.data.node.id;
-      if (!list_prerequisites.includes(e.data.node.id)) {
-        list_prerequisites.push(e.data.node.id);
-        document.querySelector('#list_prerequisites').appendChild(new_prerequisite);
-    }}
-
-    function stop_add_prerequisites() {
-      s.unbind('clickNode', add_prerequisites)
-      document.querySelector("#select_prerequisites").innerHTML = "Add more";
-      document.querySelector("#select_prerequisites").onclick = start_add_prerequisites;
-    }
-
-    function start_add_prerequisites() {
-      s.unbind('clickNode', select_target);
-      s.bind('clickNode', add_prerequisites);
-      document.querySelector("#select_prerequisites").innerHTML = "Done";
-      document.querySelector("#select_prerequisites").onclick = stop_add_prerequisites;
-    }
-
-    function start_select_target() {
-      s.unbind('clickNode', add_prerequisites);
-      s.bind('clickNode', select_target);
-      document.querySelector("#select_target").innerHTML = "Done";
-      document.querySelector("#select_target").onclick = stop_select_target;
-    }
-
-    function stop_select_target() {
-      s.unbind('clickNode', select_target);
-      document.querySelector("#select_target").innerHTML = "Select_target";
-      document.querySelector("#select_target").onclick = start_select_target;
-    }
-
-    function select_target(e) {
-      target = e.data.node.id; 
-      document.querySelector("#target_display").innerHTML = target;
-    }
-
-    function delete_last_prerequisite() {
-      if (list_prerequisites.length > 0) {
-        list_prerequisites.pop();
-        select = document.querySelector('#list_prerequisites');
-        select.removeChild(select.lastChild);
+        s.refresh();
       }
-    }
 
-    document.querySelector("#select_prerequisites").onclick = start_add_prerequisites;
-    document.querySelector("#select_target").onclick = start_select_target;
-    document.querySelector('#remove_prerequisite').onclick = delete_last_prerequisite;
-  </script>
-  <script type="text/javascript" src="{% static './Courses/tree_percourse.js'%}"></script>
-  <script>
+      function delete_last_prerequisite() {
+        if (list_prerequisites.length > 0) {
+          id = list_prerequisites.pop();
+          select = document.querySelector('#list_prerequisites');
+          select.removeChild(select.lastChild);
+          s.graph.nodes().forEach(e => {
+            if (e.id === id) {
+              e.color = 'black';
+            }});
+          s.refresh();
+        }
+      }
 
-    document.querySelector("#compute_path").addEventListener('click', function() {
-      path = get_ordered_path(data_as_json, list_prerequisites, target);
-      document.querySelector("#display_path").innerHTML = path.toString();
-    });
+      function stop_add_prerequisites() {
+        s.unbind('clickNode', add_prerequisites)
+        document.querySelector("#select_prerequisites").innerHTML = "Add more";
+        document.querySelector("#select_prerequisites").onclick = start_add_prerequisites;
+      }
 
-  </script>
+      function start_add_prerequisites() {
+        s.unbind('clickNode', select_target);
+        s.bind('clickNode', add_prerequisites);
+        document.querySelector("#select_prerequisites").innerHTML = "Done";
+        document.querySelector("#select_prerequisites").onclick = stop_add_prerequisites;
+      }
 
+      function start_select_target() {
+        s.unbind('clickNode', add_prerequisites);
+        s.bind('clickNode', select_target);
+        document.querySelector("#select_target").innerHTML = "Done";
+        document.querySelector("#select_target").onclick = stop_select_target;
+      }
+
+      function stop_select_target() {
+        s.unbind('clickNode', select_target);
+        document.querySelector("#select_target").innerHTML = "Select target";
+        document.querySelector("#select_target").onclick = start_select_target;
+      }
+
+      function select_target(e) {
+        if (target) {
+          s.graph.nodes().forEach(e => {if(e.id === target) {e.color = 'black';};})
+        }
+        e.data.node.color = 'green';
+        target = e.data.node.id; 
+        s.refresh();
+        document.querySelector("#target_display").innerHTML = target;
+      }
+
+      document.querySelector("#select_prerequisites").onclick = start_add_prerequisites;
+      document.querySelector("#select_target").onclick = start_select_target;
+      document.querySelector('#remove_prerequisite').onclick = delete_last_prerequisite;
+
+    </script>
+
+    <script type="text/javascript" src="{% static './Courses/tree_percourse.js'%}"></script>
+    
+    <script>
+
+      document.querySelector("#compute_path").addEventListener('click', function() {
+        
+        path = get_ordered_path(data_as_json, list_prerequisites, target);
+        document.querySelector("#display_path").style.display = 'block';
+
+        path.forEach(course => {
+          let next_course = document.createElement("li");
+          next_course.innerHTML = course;
+          document.querySelector("#path").appendChild(next_course);
+        })
+
+        s.graph.nodes().forEach(e => {
+
+          if (list_prerequisites.includes(e.id)) {
+            e.color='darkred';
+          } else if (path.includes(e.id)){
+            e.color='red';
+          } else {
+            e.color='grey';
+            e.size=2;
+          }
+          
+        });
+
+        s.refresh()
+
+      });
+
+    </script>
+  </div>
 
 </div>
-
-  </div>
 
   
 
