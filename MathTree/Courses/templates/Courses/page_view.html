@@ -14,13 +14,13 @@
 
 {% if item|get_identifier == "theorem" %}
 <div class="theorem item_container">
-<h3 class="item_container_name">Théorème : {{item|get_first_field}}</h3>
-<div class="item_container_content">
-<p>{{item|get_second_field}}</p>
-</div>
-<div class="item_container proof">
-<p>Preuve : {{item|get_third_field}}</p>
-</div>
+    <h3 class="item_container_name">Théorème : {{item|get_first_field}}</h3>
+    <div class="item_container_content">
+        <p>{{item|get_second_field}}</p>
+    </div>
+    <div class="item_container proof">
+        <p>Preuve : {{item|get_third_field}}</p>
+    </div>
 </div>
 {% endif %}
 
@@ -88,12 +88,13 @@
 
 {% if item|get_identifier == "definition" %}
 <div class="definition item_container">
-<h3 class="item_container_name">Définition : {{item|get_first_field}}</h3>
-<div class="item_container_content">
-<p>{{item|get_second_field}}</p>
+    <h3 class="item_container_name">Définition : {{item|get_first_field}}</h3>
+    <div class="item_container_content">
+        <p>{{item|get_second_field}}</p>
+    </div>
+</div>
 {% endif %}
-</div>
-</div>
+
 
 {% if item|get_identifier == "text" %}
 <div class = "text">

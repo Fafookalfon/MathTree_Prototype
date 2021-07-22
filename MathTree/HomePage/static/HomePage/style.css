@@ -68,9 +68,12 @@ header h1 {
 
 }
 
+
+
 main {
     padding : 20px 6%;
-    margin: auto 6%;
+    margin: auto 10%;
+    max-width: 1500px;
     position: relative;
     text-align: justify;
     font-size: 20px;
@@ -285,6 +288,75 @@ div.item_container.MCQ {
 /* 5b3 - Exercises and MCQs */
 
 /* 5b31 - Exercises */
+
+div.item_container.exercise {
+    background-color: hsla(39, 75%, 55%, 0.20);
+    margin-bottom: 30px;
+}
+
+div.item_container.exercise h4.item_container_name {
+    background-color:hsla(39, 75%, 55%, 0.6);
+    border-radius: 8px;
+    padding: 1px 10px 1px 10px ;
+    margin: auto auto 10px auto;
+    text-align: left;
+}
+
+.exercise .hints {
+    display: none;
+}
+
+.exercise .solutions {
+    display: none;
+}
+
+#exercise_buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.exercise_button {
+    border-radius: 6px ;
+    padding: 8px;
+    background-color:hsla(45, 75%, 55%, 0.4);    
+}
+
+.exercise_button:hover {
+    background-color:hsla(45, 75%, 55%, 0.7);
+}
+
+h5.exercise_section_title {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.hints {
+    background-color: hsla(210, 50%, 90%, 1);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    margin-bottom: 10px;
+}
+
+.solutions {
+    background-color: hsla(140, 50%, 90%, 1);
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom:10px;
+    margin-bottom: 10px;
+}
+
+.hints ol,
+.solutions ol {
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+
+.hints ol li {
+    font-style: italic;
+    font-size: smaller;
+}
+
 
 /* 5b32 - MCQ */
 

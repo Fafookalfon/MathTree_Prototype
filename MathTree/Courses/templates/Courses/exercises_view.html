@@ -6,26 +6,177 @@
 {% load extras %}
 
 <h2>Exercices sur le chapitre : {{chapter.name}}</h2>
+
+<h3 class="exercises_section_delimiter">Getting started</h3>
+
+
 {% for exercise in chapter.exercise_set.all %}
-<div class = "exercise">
-<p>Exercice {{forloop.counter}} : {{exercise.name}}, Difficulté : {{exercise.difficulty}}</p>
-<ol>
-{% for question in exercise.questions|parse_text_as_list %}
-<li>{{question}}</li>
-{% endfor %}
-</ol>
-<ol>
-{% for hint in exercise.hints|parse_text_as_list %}
-<li>{{hint}}</li>
-{% endfor %}
-</ol>
-<ol>
-{% for solution in exercise.solutions|parse_text_as_list %}
-<li>{{solution}}</li>
-{% endfor %}
-</ol>
+{% if exercise.difficulty == 1 %}
+
+<div class = "item_container exercise">
+    
+    <h4 class="item_container_name">Exercice {{forloop.counter}} : {{exercise.name}}, Difficulté : {{exercise.difficulty}}</h3>
+    
+    <div class= "item_container_content exercise">
+        <ol class="questions">
+            {% for question in exercise.questions|parse_text_as_list %}
+            <li>{{question}}</li>
+            {% endfor %}
+        </ol>
+        <div class="hints"> 
+            <div class="flex_center">
+                <h5 class="exercise_section_title">Hints</h4>
+            </div>
+            <ol>
+                {% for hint in exercise.hints|parse_text_as_list %}
+                <li>{{hint}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="solutions">
+            <div class="flex_center">
+                <h5 class="exercise_section_title">Solutions</h4>
+            </div>
+            <ol>
+                {% for solution in exercise.solutions|parse_text_as_list %}
+                <li>{{solution}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div id="exercise_buttons">
+            <div class="exercise_button" id="hints_button">View Hints</div>
+            <div class="exercise_button" id="solutions_button">View Solutions</div>
+        </div>
+    </div>
 </div>
+
+{% endif %}
 {% endfor %}
 
+
+<h3 class="exercises_section_delimiter">Practicing</h3>
+
+{% for exercise in chapter.exercise_set.all %}
+{% if exercise.difficulty == 2 or exercise.difficulty == 3 %}
+
+<div class = "item_container exercise">
+    
+    <h4 class="item_container_name">Exercice {{forloop.counter}} : {{exercise.name}}, Difficulté : {{exercise.difficulty}}</h3>
+    
+    <div class= "item_container_content exercise">
+        <ol class="questions">
+            {% for question in exercise.questions|parse_text_as_list %}
+            <li>{{question}}</li>
+            {% endfor %}
+        </ol>
+        <div class="hints"> 
+            <div class="flex_center">
+                <h5 class="exercise_section_title">Hints</h4>
+            </div>
+            <ol>
+                {% for hint in exercise.hints|parse_text_as_list %}
+                <li>{{hint}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="solutions">
+            <div class="flex_center">
+                <h5 class="exercise_section_title">Solutions</h4>
+            </div>
+            <ol>
+                {% for solution in exercise.solutions|parse_text_as_list %}
+                <li>{{solution}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div id="exercise_buttons">
+            <div class="exercise_button" id="hints_button">View Hints</div>
+            <div class="exercise_button" id="solutions_button">View Solutions</div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endfor %}
+
+<h3 class="exercises_section_delimiter">Challenges</h3>
+
+{% for exercise in chapter.exercise_set.all %}
+{% if exercise.difficulty == 4 or exercise.difficulty == 5 %}
+
+<div class = "item_container exercise">
+    
+    <h4 class="item_container_name">Exercice {{forloop.counter}} : {{exercise.name}}, Difficulté : {{exercise.difficulty}}</h3>
+    
+    <div class= "item_container_content exercise">
+        <ol class="questions">
+            {% for question in exercise.questions|parse_text_as_list %}
+            <li>{{question}}</li>
+            {% endfor %}
+        </ol>
+        <div class="hints"> 
+            <div class="flex_center">
+                <h5 class="exercise_section_title">Hints</h4>
+            </div>
+            <ol>
+                {% for hint in exercise.hints|parse_text_as_list %}
+                <li>{{hint}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div class="solutions">
+            <div class="flex_center">
+                <h5 class="exercise_section_title">Solutions</h4>
+            </div>
+            <ol>
+                {% for solution in exercise.solutions|parse_text_as_list %}
+                <li>{{solution}}</li>
+                {% endfor %}
+            </ol>
+        </div>
+        <div id="exercise_buttons">
+            <div class="exercise_button" id="hints_button">View Hints</div>
+            <div class="exercise_button" id="solutions_button">View Solutions</div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endfor %}
+
+<script>
+
+    function viewHints(e) {
+        e.target.innerHTML = "Hide Hints"
+        e.target.parentNode.parentNode.querySelector(".hints").style.display = 'block';
+        e.target.removeEventListener('click', viewHints)
+        e.target.addEventListener('click', hideHints)
+    }
+
+    function hideHints(e) {
+        e.target.innerHTML = "View Hints"
+        e.target.parentNode.parentNode.querySelector(".hints").style.display = 'none';
+        e.target.removeEventListener('click', hideHints)
+        e.target.addEventListener('click', viewHints)   
+    }
+
+    function viewSolutions(e) {
+        e.target.innerHTML = "Hide Solutions"
+        e.target.parentNode.parentNode.querySelector(".solutions").style.display = 'block';
+        e.target.removeEventListener('click', viewSolutions)
+        e.target.addEventListener('click', hideSolutions)
+    }
+
+    function hideSolutions(e) {
+        e.target.innerHTML = "View Solutions"
+        e.target.parentNode.parentNode.querySelector(".solutions").style.display = 'none';
+        e.target.removeEventListener('click', hideSolutions)
+        e.target.addEventListener('click', viewSolutions)   
+    }
+
+    document.querySelectorAll('#hints_button').forEach(e => e.addEventListener('click', viewHints))
+    document.querySelectorAll('#solutions_button').forEach(e => e.addEventListener('click', viewSolutions))
+
+</script>
 
 {% endblock %}
